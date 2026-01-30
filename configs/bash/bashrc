@@ -1,0 +1,52 @@
+# Configs
+# ======================================================================================
+
+# Enable vi mode, gets activated when pressing `esc`
+set -o vi
+
+# Check the window size after each command and update the LINES and COLUMNS variables
+shopt -s checkwinsize
+
+# Append to history, don't overwrite it, this is combined with `$PROMPT_COMMAND` below
+# and readline config in `.inputrc` to make sure history is always up to date
+shopt -s histappend
+
+# Enable recursive globbing via `**`
+shopt -s globstar
+
+# An unmatched glob expands to nothing instead of staying literal
+shopt -s nullglob
+
+# Exports
+# ======================================================================================
+
+# Big history
+export HISTSIZE=100000
+export HISTFILESIZE=150000
+# Ignore commands starting with space, duplicate, and erased duplicates
+export HISTCONTROL=ignorespace:ignoredups:erasedups
+
+# Append new commands to history file and read new commands from history file,
+# this is combined with `shopt -s histappend` above and readline config (`.inputrc`)
+export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+
+# Silence bash deprecation warnings on macOS
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+fi
+
+# Aliases
+# ======================================================================================
+
+alias ls="ls --color=auto"
+alias l="ls -lah"
+
+alias grep='grep --color'
+
+# Don't shoot yourself in the foot
+alias rm="rm -i -v"
+alias cp="cp -i -v"
+alias mv="mv -i -v"
+
+alias code="codium"
+alias o="conda deactivate"

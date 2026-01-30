@@ -1,3 +1,9 @@
-- clean: []
-- link: {}
-- shell: []
+- defaults:
+    link:
+      create: true
+      relink: true
+      backup: true
+- clean: ["~"]
+- link:
+  - ~/.bashrc: configs/bash/bashrc
+  - ~/.inputrc: configs/readline/inputrc
