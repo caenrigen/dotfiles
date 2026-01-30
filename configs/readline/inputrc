@@ -4,11 +4,21 @@ set output-meta on
 set convert-meta off
 
 # Sensible search/autocomplete behavior
+# Words which have more than one possible completion cause the matches to be listed immediately 
+# instead of ringing the bell
 set show-all-if-ambiguous on
+# Words which have more than one possible completion without any possible partial completion 
+# (the possible completions don't share a common prefix) cause the matches to be listed immediately
+# instead of ringing the bell.
 set show-all-if-unmodified on
+# Menu completion displays the common prefix of the list of possible completions
+# before cycling through the list.
 set menu-complete-display-prefix on
 set completion-ignore-case on
 set mark-symlinked-directories on
+
+set colored-stats on
+set colored-completion-prefix on
 
 # Arrow up/down to search through history incrementally
 "\e[A": history-search-backward

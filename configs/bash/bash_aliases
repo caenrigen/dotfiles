@@ -1,8 +1,21 @@
+# ## Colored outputs
+# ## ===================================================================================
+# * Recent version of macOS comes with `ls` that supports `--color` option.
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+# ## ===================================================================================
+
 # -l: long listing
 # -A: list all files, but do not list . and ..
 # -h: human readable sizes
 # -F: append a character to the end of each file name to indicate its type
 alias l="ls -lAhF"
+
+alias c="clear"
 
 # Don't shoot yourself in the foot
 alias rm="rm -i -v"
@@ -10,5 +23,4 @@ alias cp="cp -i -v"
 alias mv="mv -i -v"
 
 alias code="codium"
-alias c="code"
-alias o="conda deactivate"
+alias o="conda deactivate"ls
