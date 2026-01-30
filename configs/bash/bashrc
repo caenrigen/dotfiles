@@ -1,5 +1,14 @@
-# Configs
-# ======================================================================================
+# ! bashrc is read by non-login shells, bash_profile is read by login shells
+# ! Keep in here options, history, aliases, prompt, etc.
+
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# ## Configs
+# ## ===================================================================================
 
 # Enable vi mode, gets activated when pressing `esc`
 set -o vi
@@ -11,14 +20,11 @@ shopt -s checkwinsize
 # and readline config in `.inputrc` to make sure history is always up to date
 shopt -s histappend
 
-# Enable recursive globbing via `**`
-shopt -s globstar
-
 # An unmatched glob expands to nothing instead of staying literal
 shopt -s nullglob
 
-# Exports
-# ======================================================================================
+# ## Exports
+# ## ===================================================================================
 
 # Big history
 export HISTSIZE=100000
@@ -27,26 +33,41 @@ export HISTFILESIZE=150000
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 
 # Append new commands to history file and read new commands from history file,
-# this is combined with `shopt -s histappend` above and readline config (`.inputrc`)
-export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+# this is combined with `shopt -s histappend` above and readline config (`.inputrc`).
+# But only add history sync once
+case "$PROMPT_COMMAND" in
+  *"history -a; history -n;"*) ;;
+  *) export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}" ;;
+esac
 
-# Silence bash deprecation warnings on macOS
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    export BASH_SILENCE_DEPRECATION_WARNING=1
+# ## Aliases
+# ## ===================================================================================
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
 
-# Aliases
-# ======================================================================================
+# %% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-alias ls="ls --color=auto"
-alias l="ls -lah"
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
 
-alias grep='grep --color'
+    #alias grep='grep --color=auto'
+    #alias fgrep='fgrep --color=auto'
+    #alias egrep='egrep --color=auto'
+fi
 
-# Don't shoot yourself in the foot
-alias rm="rm -i -v"
-alias cp="cp -i -v"
-alias mv="mv -i -v"
-
-alias code="codium"
-alias o="conda deactivate"
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi

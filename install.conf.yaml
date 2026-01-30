@@ -1,3 +1,4 @@
+# Warning: the indentation under each directive is important, use 4 spaces!
 - defaults:
     link:
       create: true
@@ -5,5 +6,7 @@
       backup: true
 - clean: ["~"]
 - link:
-  - ~/.bashrc: configs/bash/bashrc
-  - ~/.inputrc: configs/readline/inputrc
+    ~/.bashrc: configs/bash/bashrc
+    ~/.bash_aliases: configs/bash/bash_aliases
+    ~/.bash_profile: configs/bash/bash_profile
+    ~/.inputrc: configs/readline/inputrc
