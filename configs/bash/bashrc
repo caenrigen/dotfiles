@@ -50,7 +50,7 @@ fi
 # ## Prompt
 # ## ===================================================================================
 
-# * two-line prompt with per-pipeline exit codes
+# Two-line prompt with per-piped command exit codes
 
 # ANSI colors (wrapped as non-printing for bash/readline)
 __c_reset='\[\033[0m\]'

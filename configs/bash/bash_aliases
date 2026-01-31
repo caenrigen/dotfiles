@@ -23,4 +23,4 @@ alias cp="cp -i -v"
 alias mv="mv -i -v"
 
 alias code="codium"
-alias o="conda deactivate"ls
+alias o="conda deactivate"
