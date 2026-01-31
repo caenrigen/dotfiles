@@ -53,10 +53,11 @@ fi
 # * two-line prompt with per-pipeline exit codes
 
 # ANSI colors (wrapped as non-printing for bash/readline)
-__c_reset='\[\033[00m\]'
-__c_red='\[\033[01;31m\]'
-__c_green='\[\033[01;32m\]'  # Debian-style green
-__c_blue='\[\033[01;34m\]'   # Debian-style blue
+__c_reset='\[\033[0m\]'
+# Using 91/92/94 instead of 31/32/34 to prevent the "bold" effect
+__c_red='\[\033[0;91m\]'
+__c_green='\[\033[0;92m\]'  # Debian-style green
+__c_blue='\[\033[0;94m\]'   # Debian-style blue
 
 __set_prompt() {
   # Build: [ 0 | 127 | 0 ] with 0=green, nonzero=red
