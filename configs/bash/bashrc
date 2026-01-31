@@ -3,8 +3,8 @@
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+    *) return;;
 esac
 
 # ## Configs
@@ -44,7 +44,7 @@ esac
 # ## ===================================================================================
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  source ~/.bash_aliases
 fi
 
 # ## Prompt
@@ -84,13 +84,16 @@ __set_prompt() {
     user_color="$__c_red" # username red if root
     prompt_color="$__c_red" # make "# " red
   fi
+  
+  # Conda env indicator
+  local conda_env="${CONDA_DEFAULT_ENV:+ (${CONDA_DEFAULT_ENV})}"
 
   # Line 1: [ ... ] username@host cwd
   #   - username: green (or red if root)
   #   - @host: green
   #   - cwd: blue
   # Line 2: $  (or red # if root)
-  PS1="${out} ${user_color}\u${__c_green}${__c_reset} @ ${__c_green}\h${__c_reset} ${__c_blue}\w${__c_reset}\n${prompt_color}\$${__c_reset} "
+  PS1="${out}${conda_env} ${user_color}\u${__c_green}${__c_reset} @ ${__c_green}\h${__c_reset} ${__c_blue}\w${__c_reset}\n${prompt_color}\$${__c_reset} "
 }
 
 PROMPT_COMMAND="__set_prompt"
