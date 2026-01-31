@@ -46,3 +46,50 @@ esac
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# ## Prompt
+# ## ===================================================================================
+
+# * two-line prompt with per-pipeline exit codes
+
+# ANSI colors (wrapped as non-printing for bash/readline)
+__c_reset='\[\033[00m\]'
+__c_red='\[\033[01;31m\]'
+__c_green='\[\033[01;32m\]'  # Debian-style green
+__c_blue='\[\033[01;34m\]'   # Debian-style blue
+
+__set_prompt() {
+  # Build: [ 0 | 127 | 0 ] with 0=green, nonzero=red
+  local -a ps=( "${PIPESTATUS[@]}" )
+  local out="{" i code color
+
+  for i in "${!ps[@]}"; do
+    code="${ps[i]}"
+    color="$__c_green"
+    [[ "$code" != 0 ]] && color="$__c_red"
+
+    if (( i == 0 )); then
+      out+=" ${color}${code}${__c_reset}"
+    else
+      out+=" | ${color}${code}${__c_reset}"
+    fi
+  done
+  out+=" }"
+
+  # Root styling
+  local user_color="$__c_green"
+  local prompt_color=""
+  if (( EUID == 0 )); then
+    user_color="$__c_red" # username red if root
+    prompt_color="$__c_red" # make "# " red
+  fi
+
+  # Line 1: [ ... ] username@host cwd
+  #   - username: green (or red if root)
+  #   - @host: green
+  #   - cwd: blue
+  # Line 2: $  (or red # if root)
+  PS1="${out} ${user_color}\u${__c_green}${__c_reset} @ ${__c_green}\h${__c_reset} ${__c_blue}\w${__c_reset}\n${prompt_color}\$${__c_reset} "
+}
+
+PROMPT_COMMAND="__set_prompt"
