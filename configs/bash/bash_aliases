@@ -24,4 +24,5 @@ alias mv="mv -i -v"
 
 case "$(uname -s)" in
   Darwin) source "$HOME/dotfiles/configs/bash/macos.bash_aliases" ;;
+  Linux) source "$HOME/dotfiles/configs/bash/linux.bash_aliases" ;;
 esac
