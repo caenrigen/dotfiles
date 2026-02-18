@@ -20,8 +20,13 @@ shopt -s checkwinsize
 # and readline config in `.inputrc` to make sure history is always up to date
 shopt -s histappend
 
-# An unmatched glob expands to nothing instead of staying literal
-shopt -s nullglob
+# https://mywiki.wooledge.org/glob
+# An unmatched glob expands to nothing instead of staying literal. Not POSIX.
+# Enabling this can lead to unexpected behavior, e.g., `ls *nonexistent*` will list all the 
+# contents of the dir (because the glob expansion expanded to empty).
+# shopt -s nullglob
+# An unmatched glob becomes an error. It has edge cases too.
+# shoot -s failglob
 
 # ## Exports
 # ## ===================================================================================
