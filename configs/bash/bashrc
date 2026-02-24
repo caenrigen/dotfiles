@@ -101,4 +101,8 @@ __set_prompt() {
   PS1="${out}${conda_env} ${user_color}\u${__c_green}${__c_reset} @ ${__c_green}\h${__c_reset} ${__c_blue}\w${__c_reset}\n${prompt_color}\$${__c_reset} "
 }
 
-PROMPT_COMMAND="__set_prompt"
+case "$PROMPT_COMMAND" in
+  *"__set_prompt"*) ;;
+  "") PROMPT_COMMAND="__set_prompt" ;;
+  *) PROMPT_COMMAND="__set_prompt; ${PROMPT_COMMAND}" ;;
+esac
