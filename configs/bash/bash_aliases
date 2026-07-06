@@ -15,10 +15,9 @@ alias l="ls -lAhF"
 alias c="clear"
 
 # Don't shoot yourself in the foot
-alias rmrf="\rm -rf" # Use responsibly
-alias rm="rm -i -v"
-alias cp="cp -i -v"
-alias mv="mv -i -v"
+alias rmiv="rm -i -v"
+alias cpiv="cp -i -v"
+alias mviv="mv -i -v"
 
 # ## Platform specific aliases
 # ## ===================================================================================
