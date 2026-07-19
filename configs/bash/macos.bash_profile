@@ -26,7 +26,11 @@ export LANG="en_US.UTF-8"
 if [ -x "/opt/homebrew/bin/brew" ]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [ -x "/usr/local/bin/brew" ]; then
+    # For older macOS, e.g. macOS 11.
     eval "$(/usr/local/bin/brew shellenv)"
+    # Use GNU-based utils, e.g. a `ls` that supports `ls --color`.
+    # Requires `brew install coreutils`
+    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 fi
 
 # https://formulae.brew.sh/formula/bash-completion@2
